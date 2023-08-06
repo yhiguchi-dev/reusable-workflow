@@ -1,0 +1,38 @@
+name: Lint with pnpm
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'node version'
+        required: true
+        type: string
+      lint-command:
+        description: 'lint command'
+        required: true
+        type: string
+      working-directory:
+        description: 'working directory'
+        required: true
+        type: string
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: pnpm
+          cache-dependency-path: ./${{ inputs.working-directory }}/pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: ${{ inputs.working-directory }}
+      - name: Run lint
+        run: pnpm ${{ inputs.lint-command }}
+        working-directory: ${{ inputs.working-directory }}
