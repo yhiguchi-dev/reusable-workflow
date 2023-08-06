@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image push to Github Container Registry
 
 on:
   workflow_call:
@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  build:
+  push-docker-image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
