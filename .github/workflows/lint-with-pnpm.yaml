@@ -17,6 +17,24 @@ on:
         type: string
 
 jobs:
+  super-linter:
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Super-Linter with ${{ inputs.lint-mode }}
+        uses: github/super-linter/slim@v5
+        if: ${{ inputs.lint-mode == 'typescript' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: main
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_TYPESCRIPT_STANDARD: false
+          VALIDATE_CSS: false
   lint:
     runs-on: ubuntu-latest
     steps:
