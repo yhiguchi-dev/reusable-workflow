@@ -17,7 +17,7 @@ on:
         type: string
 
 jobs:
-  super-linter:
+  lint-with-super-linter:
     runs-on: ubuntu-latest
     permissions:
       statuses: write
@@ -27,7 +27,6 @@ jobs:
           fetch-depth: 0
       - name: Super-Linter with ${{ inputs.lint-mode }}
         uses: github/super-linter/slim@v5
-        if: ${{ inputs.lint-mode == 'typescript' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: true
