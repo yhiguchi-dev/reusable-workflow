@@ -16,9 +16,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Super-Linter with ${{ github.event.inputs.lint-mode }}
+      - name: Super-Linter with ${{ inputs.lint-mode }}
         uses: github/super-linter/slim@v5
-        if: ${{ github.event.inputs.lint-mode == 'java-with-gradle' }}
+        if: ${{ inputs.lint-mode == 'java-with-gradle' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: true
@@ -27,9 +27,9 @@ jobs:
           VALIDATE_JAVA: false
           VALIDATE_GOOGLE_JAVA_FORMAT: false
           VALIDATE_SQLFLUFF: false
-      - name: Super-Linter with ${{ github.event.inputs.lint-mode }}
+      - name: Super-Linter with ${{ inputs.lint-mode }}
         uses: github/super-linter/slim@v5
-        if: ${{ github.event.inputs.lint-mode == 'typescript' }}
+        if: ${{ inputs.lint-mode == 'typescript' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: true
