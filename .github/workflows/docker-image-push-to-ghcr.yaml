@@ -7,6 +7,10 @@ on:
         description: 'build context'
         required: true
         type: string
+      version:
+        description: 'version'
+        required: true
+        type: string
 
 jobs:
   push-docker-image:
@@ -28,7 +32,7 @@ jobs:
         with:
           context: ./${{ inputs.build-context }}
           load: true
-          tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:latest
+          tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:${{ inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Push ${{ inputs.build-context }}
@@ -36,6 +40,6 @@ jobs:
         with:
           context: ./${{ inputs.build-context }}
           push: true
-          tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:latest
+          tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:${{ inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
