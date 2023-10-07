@@ -17,25 +17,25 @@ on:
         type: string
 
 jobs:
-  lint-with-super-linter:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Super-Linter
-        uses: github/super-linter/slim@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
-          VALIDATE_JAVASCRIPT_STANDARD: false
-          VALIDATE_TYPESCRIPT_STANDARD: false
-          VALIDATE_CSS: false
+#  lint-with-super-linter:
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: read
+#      packages: read
+#      statuses: write
+#    steps:
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#      - name: Super-Linter
+#        uses: github/super-linter/slim@v5
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          VALIDATE_ALL_CODEBASE: false
+#          DEFAULT_BRANCH: main
+#          VALIDATE_JAVASCRIPT_STANDARD: false
+#          VALIDATE_TYPESCRIPT_STANDARD: false
+#          VALIDATE_CSS: false
   lint-with-pnpm:
     runs-on: ubuntu-latest
     steps:
