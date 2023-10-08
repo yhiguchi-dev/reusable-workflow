@@ -43,7 +43,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17
+          java-version: ${{ inputs.java-version }}
           cache: gradle
       - name: Show Version
         run: |
