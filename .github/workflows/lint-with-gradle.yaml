@@ -3,10 +3,6 @@ name: Lint with gradle
 on:
   workflow_call:
     inputs:
-      graalvm-version:
-        description: 'graalvm version'
-        required: true
-        type: string
       java-version:
         description: 'java version'
         required: true
