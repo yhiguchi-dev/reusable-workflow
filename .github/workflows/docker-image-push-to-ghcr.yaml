@@ -20,6 +20,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
@@ -38,6 +40,16 @@ jobs:
           tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:${{ inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ghcr.io/${{ github.repository }}-${{ input.build-context }}:latest
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
       - name: Push ${{ inputs.build-context }}
         uses: docker/build-push-action@v5
         with:
@@ -46,3 +58,4 @@ jobs:
           tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:${{ inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
