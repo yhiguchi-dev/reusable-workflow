@@ -18,6 +18,12 @@ jobs:
     permissions:
       contents: read
       packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
     steps:
       - uses: actions/checkout@v4
       - name: Set up QEMU
@@ -40,7 +46,7 @@ jobs:
           tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:${{ inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platform }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -58,4 +64,4 @@ jobs:
           tags: ghcr.io/${{ github.repository }}-${{ inputs.build-context }}:${{ inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platform }}
