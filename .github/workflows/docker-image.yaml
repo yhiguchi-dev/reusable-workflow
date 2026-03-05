@@ -41,7 +41,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build ${{ inputs.build-context }}
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: ./${{ inputs.build-context }}
           load: true
@@ -59,7 +59,7 @@ jobs:
           vuln-type: os,library
           severity: CRITICAL,HIGH
       - name: Push ${{ inputs.build-context }}
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         if: ${{ inputs.push == true }}
         with:
           context: ./${{ inputs.build-context }}
